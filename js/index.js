@@ -13,6 +13,9 @@ let snakeArr = [
 
 food = {x: 6, y: 7};
 
+
+let gameStarted = false;
+
 // Game Functions
 function main(ctime) {
     window.requestAnimationFrame(main);
@@ -103,7 +106,7 @@ function gameEngine(){
 
 
 // Main logic starts here
-musicSound.play();
+// musicSound.play();
 let hiscore = localStorage.getItem("hiscore");
 if(hiscore === null){
     hiscoreval = 0;
@@ -116,6 +119,11 @@ else{
 
 window.requestAnimationFrame(main);
 window.addEventListener('keydown', e =>{
+
+    if(!gameStarted){
+        musicSound.play();
+        gameStarted = true;
+    }
 
     let preventReverse = inputDir;
 
