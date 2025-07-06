@@ -13,6 +13,9 @@ let snakeArr = [
 
 food = {x: 6, y: 7};
 
+
+let gameStarted = false;
+
 // Game Functions
 function main(ctime) {
     window.requestAnimationFrame(main);
@@ -103,7 +106,7 @@ function gameEngine(){
 
 
 // Main logic starts here
-musicSound.play();
+// musicSound.play();
 let hiscore = localStorage.getItem("hiscore");
 if(hiscore === null){
     hiscoreval = 0;
@@ -116,29 +119,44 @@ else{
 
 window.requestAnimationFrame(main);
 window.addEventListener('keydown', e =>{
-    inputDir = {x: 0, y: 1} // Start the game
+
+    if(!gameStarted){
+        musicSound.play();
+        gameStarted = true;
+    }
+
+    let preventReverse = inputDir;
+
     moveSound.play();
     switch (e.key) {
         case "ArrowUp":
             console.log("ArrowUp");
+            if(preventReverse.y === 1)
+                return;
             inputDir.x = 0;
             inputDir.y = -1;
             break;
 
         case "ArrowDown":
             console.log("ArrowDown");
+            if(preventReverse.y === -1)
+                return;
             inputDir.x = 0;
             inputDir.y = 1;
             break;
 
         case "ArrowLeft":
             console.log("ArrowLeft");
+            if(preventReverse.x ===1)
+                return;
             inputDir.x = -1;
             inputDir.y = 0;
             break;
 
         case "ArrowRight":
             console.log("ArrowRight");
+            if(preventReverse.x === -1)
+                return;
             inputDir.x = 1;
             inputDir.y = 0;
             break;
